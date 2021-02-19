@@ -108,9 +108,15 @@ not officially supported, and will not receive bugfixes or new features.
       -a, --authenticate (update|download|list), ...
         Comma-separated list of (case-insensitive) actions to authenticate.
         Requires to have set the password (-P option).
+        To restrict the action to specific users, follow the action with an equal
+        sign and a colon-separated list of allowed users. To use a group, preceed
+        the group name with a % (requires setting a group file with -g option).
         To password-protect package downloads (in addition to uploads) while
         leaving listings public, use:
           -P foo/htpasswd.txt -a update,download
+        To allow any user with a password to list and download but only a special
+        group of uploaders to upload, use:
+          -P foo/htpasswd.txt -g foo/groups.txt -a list,download,upload=%uploaders
         To allow unauthorized access, use:
           -P . -a .
         Note that when uploads are not protected, the `register` command
@@ -123,6 +129,11 @@ not officially supported, and will not receive bugfixes or new features.
         authenticating certain actions (see -a option).
         To allow unauthorized access, use:
           -P . -a .
+
+      -g, --groups GROUP_FILE
+        Use apache-style group file to associate group names to a list of users.
+        Only used when giving specific groups permission to perform certain
+        actions (see -a option).
 
       --disable-fallback
         Disable redirect to real PyPI index for packages not found in the
