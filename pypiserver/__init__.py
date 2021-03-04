@@ -201,6 +201,10 @@ def paste_app_factory(_global_config, **local_conf):
         """Convert a specified string root into an absolute Path instance."""
         return pathlib.Path(root.strip()).expanduser().resolve()
 
+    def to_overwrite(val: t.Optional[str]) -> t.Optional[t.Union[bool, str]]:
+        """Convert a string value, if provided, to a bool or "dev"."""
+        return val if val == "dev" else to_bool(val)
+
     def _parse_action_users(
             action: str
     ) -> t.Tuple[str, t.Optional[t.List[str]]]:
@@ -222,7 +226,7 @@ def paste_app_factory(_global_config, **local_conf):
         "disable_fallback": to_bool,
         # redirect_to_fallback is a deprecated argument for disable_fallback
         "redirect_to_fallback": to_bool,
-        "overwrite": to_bool,
+        "overwrite": to_overwrite,
         "authenticate": functools.partial(to_dict, sep=" ",
                                           transform=_parse_action_users),
         # authenticated is a deprecated argument for authenticate

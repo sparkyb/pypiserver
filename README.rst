@@ -155,6 +155,10 @@ not officially supported, and will not receive bugfixes or new features.
       -o, --overwrite
         Allow overwriting existing package files.
 
+      --overwrite-dev
+        Allow overwriting existing package files only if they are development
+        releases.
+
       --hash-algo ALGO
         Any `hashlib` available algo used as fragments on package links.
         Set one of (0, no, off, false) to disabled it (default: md5).
